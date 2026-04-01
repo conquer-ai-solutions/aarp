@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AARP — Advisor Intro Briefing</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --brand:   #515FFC;
+  --green:   #059669;
+  --red:     #DC2626;
+  --amber:   #D97706;
+  --purple:  #7C3AED;
+  --teal:    #0D9488;
+  --text-1:  #111111;
+  --text-2:  #555555;
+  --text-3:  #999999;
+  --border:  #E5E5E5;
+  --bg-alt:  #F7F7F6;
+  --nav-h:   48px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-1);
+  background: #fff;
+}
+
+/* ── NAV ── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  padding: 0 32px;
+  gap: 0;
+}
+.nav-logo { display: flex; align-items: center; gap: 7px; margin-right: 28px; flex-shrink: 0; text-decoration: none; }
+.nav-logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--brand); }
+.nav-logo-text { font-size: 13px; font-weight: 700; color: var(--text-1); letter-spacing: -0.01em; }
+.nav-divider { width: 1px; height: 20px; background: var(--border); margin: 0 20px; flex-shrink: 0; }
+.nav-links { display: flex; align-items: center; gap: 0; flex: 1; overflow-x: auto; }
+.nav-link { font-size: 13px; font-weight: 500; color: var(--text-2); text-decoration: none; padding: 0 14px; height: var(--nav-h); display: flex; align-items: center; border-bottom: 2px solid transparent; white-space: nowrap; transition: color 0.1s, border-color 0.1s; }
+.nav-link:hover { color: var(--text-1); }
+.nav-link.active { color: var(--text-1); border-bottom-color: var(--brand); font-weight: 600; }
+.nav-internal { margin-left: auto; flex-shrink: 0; background: var(--text-1); color: #fff; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 12px; border-radius: 3px; }
+
+/* ── LAYOUT ── */
+.content-wrap { max-width: 900px; margin: 0 auto; padding: 0 40px; }
+.section { padding: 72px 0 80px; border-bottom: 1px solid var(--border); }
+.section.alt { background: var(--bg-alt); }
+.section.dark { background: var(--text-1); color: #fff; }
+
+/* ── TYPOGRAPHY ── */
+.section-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal); margin-bottom: 16px; font-family: 'Courier New', monospace; }
+.section.dark .section-eyebrow { color: #6EE7B7; }
+.section-headline { font-size: 48px; font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; color: var(--text-1); margin-bottom: 12px; }
+.section.dark .section-headline { color: #fff; }
+.section-sub { font-size: 16px; color: var(--text-2); margin-bottom: 40px; max-width: 640px; }
+.section.dark .section-sub { color: rgba(255,255,255,0.55); }
+
+/* ── HERO ── */
+.hero { padding: 56px 0 64px; border-bottom: 1px solid var(--border); }
+.hero-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); font-family: 'Courier New', monospace; margin-bottom: 20px; }
+.hero-headline { font-size: 56px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.08; color: var(--text-1); margin-bottom: 14px; }
+.hero-sub { font-size: 18px; color: var(--text-2); max-width: 560px; }
+
+/* ── INFO CARDS ── */
+.info-card { border: 1px solid var(--border); border-radius: 6px; padding: 24px 28px; margin-bottom: 12px; background: #fff; }
+.info-card-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal); font-family: 'Courier New', monospace; margin-bottom: 12px; }
+.info-card-label.red { color: var(--red); }
+.info-card-label.amber { color: var(--amber); }
+.info-card-label.brand { color: var(--brand); }
+.info-card-label.green { color: var(--green); }
+.info-card p { font-size: 15px; color: var(--text-1); margin-bottom: 10px; }
+.info-card p:last-child { margin-bottom: 0; }
+.info-card p em { font-style: italic; color: var(--green); }
+
+/* ── HOOK / WATCH-OUT BLOCKS ── */
+.hook-block { border: 1px solid var(--border); border-radius: 6px; padding: 18px 22px; margin-bottom: 8px; font-size: 14px; line-height: 1.65; background: #fff; }
+.hook-block .hook-label { font-weight: 800; color: var(--text-1); }
+.hook-block.warn { border-left: 3px solid var(--amber); }
+.hook-block.warn .hook-label { color: var(--amber); }
+.hook-block.danger { border-left: 3px solid var(--red); }
+.hook-block.danger .hook-label { color: var(--red); }
+.hook-block.good { border-left: 3px solid var(--green); }
+.hook-block.good .hook-label { color: var(--green); }
+.hook-block.info { border-left: 3px solid var(--brand); }
+.hook-block.info .hook-label { color: var(--brand); }
+
+/* ── ACCORDION ── */
+.accordion { border: 1px solid var(--border); border-radius: 6px; margin-bottom: 8px; overflow: hidden; }
+.accordion-trigger { display: flex; align-items: center; gap: 12px; padding: 14px 20px; cursor: pointer; background: #fff; border: none; width: 100%; text-align: left; font-size: 14px; font-weight: 600; color: var(--text-1); transition: background 0.1s; }
+.accordion-trigger:hover { background: var(--bg-alt); }
+.accordion-arrow { font-size: 10px; color: var(--text-3); transition: transform 0.15s; flex-shrink: 0; }
+.accordion-arrow.open { transform: rotate(90deg); }
+.acc-type { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 8px; border-radius: 3px; flex-shrink: 0; font-family: 'Courier New', monospace; }
+.acc-type.ask      { background: #ECFDF5; color: var(--green); }
+.acc-type.show     { background: #EEF2FF; color: var(--brand); }
+.acc-type.deep     { background: #F5F3FF; color: var(--purple); }
+.acc-type.critical { background: #FEF2F2; color: var(--red); }
+.acc-type.docs     { background: #F3F4F6; color: #374151; }
+.acc-type.eng      { background: #EEF2FF; color: var(--brand); }
+.acc-type.com      { background: #FFFBEB; color: var(--amber); }
+.accordion-body { padding: 20px 24px; border-top: 1px solid var(--border); background: #fff; display: none; font-size: 14px; color: var(--text-2); line-height: 1.7; }
+.accordion-body.open { display: block; }
+.accordion-body p { margin-bottom: 10px; }
+.accordion-body p:last-child { margin-bottom: 0; }
+.accordion-body strong { color: var(--text-1); font-weight: 600; }
+
+/* ── PEOPLE GRID ── */
+.people-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.person-card { border: 1px solid var(--border); border-radius: 6px; padding: 20px; background: #fff; }
+.person-name { font-size: 15px; font-weight: 700; color: var(--text-1); margin-bottom: 3px; }
+.person-role { font-size: 12px; color: var(--teal); margin-bottom: 12px; font-weight: 500; }
+.person-role.red { color: var(--red); }
+.person-role.amber { color: var(--amber); }
+.person-role.brand { color: var(--brand); }
+.person-body { font-size: 13px; color: var(--text-2); line-height: 1.6; }
+
+/* ── STAT STRIP ── */
+.stat-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; margin-bottom: 12px; }
+.stat-cell { padding: 20px 18px; border-right: 1px solid var(--border); text-align: center; }
+.stat-cell:last-child { border-right: none; }
+.stat-num { font-size: 28px; font-weight: 800; letter-spacing: -0.03em; color: var(--text-1); font-family: 'Courier New', monospace; margin-bottom: 4px; }
+.stat-num.green { color: var(--green); }
+.stat-num.amber { color: var(--amber); }
+.stat-num.brand { color: var(--brand); }
+.stat-lbl { font-size: 11px; color: var(--text-2); font-weight: 500; }
+
+/* ── OPPORTUNITY CARDS ── */
+.opp-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 16px; }
+.opp-card { border: 1px solid var(--border); border-radius: 6px; padding: 24px 28px; background: #fff; }
+.opp-card-num { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brand); font-family: 'Courier New', monospace; margin-bottom: 8px; }
+.opp-card-title { font-size: 16px; font-weight: 700; color: var(--text-1); margin-bottom: 8px; }
+.opp-card-body { font-size: 14px; color: var(--text-2); line-height: 1.6; }
+.opp-card-body strong { color: var(--text-1); }
+
+/* ── BLOCKQUOTE ── */
+blockquote { border-left: 3px solid var(--brand); padding: 12px 20px; margin: 16px 0; background: #FAFAFA; font-size: 14px; color: var(--text-2); font-style: italic; border-radius: 0 6px 6px 0; }
+blockquote cite { display: block; margin-top: 8px; font-size: 12px; font-style: normal; color: var(--text-3); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) {
+  .hero-headline { font-size: 36px; }
+  .section-headline { font-size: 32px; }
+  .people-grid { grid-template-columns: 1fr; }
+  .opp-grid { grid-template-columns: 1fr; }
+  .stat-strip { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <a class="nav-logo" href="#">
+    <span class="nav-logo-dot"></span>
+    <span class="nav-logo-text">Conquer AI</span>
+  </a>
+  <span class="nav-divider"></span>
+  <div class="nav-links">
+    <a class="nav-link" href="#intro">The Intro</a>
+    <a class="nav-link" href="#org">AARP Context</a>
+    <a class="nav-link" href="#contacts">Key Contacts</a>
+    <a class="nav-link" href="#opportunities">Opportunity Areas</a>
+    <a class="nav-link" href="#approach">Our Approach</a>
+    <a class="nav-link" href="#risks">Risks & Watch Points</a>
+  </div>
+  <span class="nav-internal">Internal</span>
+</nav>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="content-wrap">
+    <div class="hero-eyebrow">AARP · Advisor Introduction Brief</div>
+    <h1 class="hero-headline">38 million members.<br>One CMO reimagining<br>the whole machine.</h1>
+    <p class="hero-sub">Advisor intro via Janine Silverblatt — exploring AI pilot opportunities with AARP's new marketing leadership during a critical restructuring window.</p>
+  </div>
+</div>
+
+<!-- ══ SECTION: THE INTRO ══ -->
+<div id="intro" class="section">
+<div class="content-wrap">
+
+  <div class="section-eyebrow">The Introduction</div>
+  <h2 class="section-headline">Janine Silverblatt<br>is opening the door.</h2>
+  <p class="section-sub">Janine is a Conquer advisor making an introduction to AARP's senior marketing leadership. This is a first meeting — discovery, not a pitch.</p>
+
+  <div class="stat-strip">
+    <div class="stat-cell">
+      <div class="stat-num brand">AARP</div>
+      <div class="stat-lbl">Organisation</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">38M+</div>
+      <div class="stat-lbl">Members</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">120M+</div>
+      <div class="stat-lbl">Americans 50+ served</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num green">Non-profit</div>
+      <div class="stat-lbl">Largest in US by membership</div>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <div class="info-card-label">Meeting objective</div>
+    <p>Explore alignment between AARP's strategic priorities and Conquer AI's capabilities. Identify high-impact AI pilot opportunities that give Anna Banks the data and confidence to bake AI into new business processes during her restructuring phase.</p>
+  </div>
+
+  <div class="hook-block good">
+    <span class="hook-label">Strategic hook — Timing: </span>Anna is ~6 months into her role and actively restructuring. She's past the assessment phase and into the "reimagining" phase. This is the ideal window — early enough to shape how AI gets embedded, late enough that she knows what she wants to change.
+  </div>
+
+  <div class="hook-block info">
+    <span class="hook-label">Advisor context: </span>Janine Silverblatt initiated this intro. She has framed Conquer as a process reimagination partner, not an automation vendor. The AARP contacts expect a strategic conversation, not a capabilities deck.
+  </div>
+
+</div>
+</div>
+
+<!-- ══ SECTION: AARP CONTEXT ══ -->
+<div id="org" class="section alt">
+<div class="content-wrap">
+
+  <div class="section-eyebrow">Organisation Context</div>
+  <h2 class="section-headline">The nation's largest<br>nonprofit — in transition.</h2>
+  <p class="section-sub">AARP is not a typical enterprise. It combines advocacy, publishing, insurance, financial services, and member services at massive scale. Understanding the org is essential to landing a pilot.</p>
+
+  <div class="info-card">
+    <div class="info-card-label">What AARP actually is</div>
+    <p>AARP is the largest nonprofit in the US, dedicated to empowering people 50+ to choose how they live as they age. Its scope is enormous: it operates flagship publications (AARP The Magazine and AARP Bulletin — the most-read print titles in the country), insurance products, financial services, advocacy programmes, and digital member services.</p>
+  </div>
+
+  <div class="info-card">
+    <div class="info-card-label green">Digital readiness signal</div>
+    <p>AARP's own 2026 Tech Trends research shows AI usage among the 50+ demographic has nearly doubled — from 18% in 2024 to 30% in 2025. But awareness is outpacing knowledge. AARP needs to resolve this tension for its members, and it's also one Anna is likely feeling internally.</p>
+  </div>
+
+  <div class="info-card">
+    <div class="info-card-label brand">AgeTech leadership</div>
+    <p>AARP led the AgeTech Collaborative at CES 2026, focused on AI and emerging tech for the 50+ population. Sami Hassanyeh spoke on a panel called "The Startup Inside: How Big Companies Innovate Like Founders." They are publicly invested in being at the frontier of this space — which means internal AI adoption can't lag behind.</p>
+  </div>
+
+  <div class="hook-block warn">
+    <span class="hook-label">Watch out — Nonprofit dynamics: </span>AARP is mission-driven, not revenue-driven. Procurement and budget authority may work differently to a typical enterprise. Expect longer approval cycles and a need to demonstrate mission alignment, not just ROI.
+  </div>
+
+</div>
+</div>
+
+<!-- ══ SECTION: KEY CONTACTS ══ -->
+<div id="contacts" class="section">
+<div class="content-wrap">
+
+  <div class="section-eyebrow">Key Contacts</div>
+  <h2 class="section-headline">Who we're<br>meeting with.</h2>
+  <p class="section-sub">Two senior leaders with complementary profiles — one is the new strategic vision, the other is the institutional digital authority.</p>
+
+  <div class="people-grid" style="margin-bottom:16px;">
+    <div class="person-card">
+      <div class="person-name">Anna E. Banks</div>
+      <div class="person-role">EVP & Chief Marketing Officer</div>
+      <div class="person-body">~6 months into the role. Joined from <strong>Sephora North America</strong> where she was SVP leading digital transformation and personalisation — her marketing efforts drove <strong>$1.5B+ in annual revenue</strong>. Previously CMO at <strong>Fair Trade USA</strong> (brand transformation across consumer, donor, advocacy audiences), senior roles at <strong>Walmart Global eCommerce</strong>, and digital strategy leadership at <strong>McCann Worldgroup</strong>. Harvard undergrad, Harvard MBA. Board of Museum of the African Diaspora. Investor with Pipeline Angels.</div>
+    </div>
+    <div class="person-card">
+      <div class="person-name">Sami Hassanyeh</div>
+      <div class="person-role brand">SVP Digital Strategy & Membership / Chief Digital Transformation Officer</div>
+      <div class="person-body"><strong>18+ years at AARP</strong>, 30+ years in tech and marketing. He essentially built AARP's digital presence. Speaks at CES, CDAO summits, and MMA events. At CES 2026 he presented on driving AI, wearables, and personalised experiences at enterprise speed within large organisations. He's the institutional knowledge and digital infrastructure authority — if Anna is the buy decision, Sami is the validation.</div>
+    </div>
+    <div class="person-card">
+      <div class="person-name">Janine Silverblatt</div>
+      <div class="person-role amber">Conquer Advisor · Making the Introduction</div>
+      <div class="person-body">Janine is the connector here. She has relationships with both AARP contacts and has positioned Conquer as a strategic AI partner. She has framed the meeting around <strong>process reimagination</strong> — not automation — and set the expectation that Conquer will come with a point of view, not a sales pitch.</div>
+    </div>
+  </div>
+
+  <div class="hook-block good">
+    <span class="hook-label">Strategic hook — Anna's profile: </span>She's a data-driven digital transformation operator from Sephora, not a traditional nonprofit marketer. She's done exactly what we're proposing (reimagining from within) at Sephora and Fair Trade. She'll want measurable outcomes, not theory. Speak her language: member engagement lift, time-to-insight compression, operational efficiency.
+  </div>
+
+  <div class="hook-block info">
+    <span class="hook-label">Don't overlook Sami: </span>He's been at AARP for 18 years. He knows where every body is buried. If Anna decides to buy, Sami validates whether it will actually work. Position the meeting so he feels like a partner in evaluating this, not a bystander.
+  </div>
+
+  <!-- Deep profiles accordion -->
+  <div class="accordion" style="margin-top:16px;">
+    <button class="accordion-trigger" onclick="toggleAcc(this)">
+      <span class="accordion-arrow">▶</span>
+      <span class="acc-type deep">DEEP</span>
+      Anna Banks — what she leads at AARP
+    </button>
+    <div class="accordion-body">
+      <p><strong>Marketing, Brand and Content (MBC) organisation</strong> — the entire scope of her remit:</p>
+      <p>Brand strategy · Integrated communications · Membership lifecycle · Experience design · Customer care · Editorial</p>
+      <p>She also helms AARP The Magazine and AARP Bulletin — the most-read print titles in the country.</p>
+      <p>Her commitment to mission-driven work extends beyond AARP: she's served on the boards of the Museum of the African Diaspora and Katherine Delmar Burke School, and is an investor/mentor with Pipeline Angels (women investors supporting social entrepreneurs).</p>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-trigger" onclick="toggleAcc(this)">
+      <span class="accordion-arrow">▶</span>
+      <span class="acc-type deep">DEEP</span>
+      Sami Hassanyeh — CES 2026 talk and digital transformation track record
+    </button>
+    <div class="accordion-body">
+      <p><strong>CES 2026 session:</strong> "The Startup Inside: How Big Companies Innovate Like Founders" — about driving breakthrough AgeTech (AI care, wearables, personalised experiences) at startup speed within enterprise organisations.</p>
+      <p>His title at CES was <strong>Chief Digital Transformation Officer</strong>, suggesting a broader mandate than the SVP Digital Strategy & Membership title implies.</p>
+      <p>He's been described as having played a pivotal role in transforming AARP's digital presence — driving growth in audience engagement, digital memberships, and advertising revenue.</p>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══ SECTION: OPPORTUNITY AREAS ══ -->
+<div id="opportunities" class="section alt">
+<div class="content-wrap">
+
+  <div class="section-eyebrow">Opportunity Areas</div>
+  <h2 class="section-headline">Four doors.<br>One entry point.</h2>
+  <p class="section-sub">Janine has identified four opportunity areas from her conversations with AARP. Each is a potential pilot. The strategy is to lead with one and let it open the others.</p>
+
+  <div class="opp-grid">
+    <div class="opp-card">
+      <div class="opp-card-num">Opportunity 01 — Recommended Entry Point</div>
+      <div class="opp-card-title">Internal Listening: The Unstructured Data Goldmine</div>
+      <div class="opp-card-body">AARP receives massive amounts of unstructured data: <strong>call centre transcripts, 20,000+ member survey respondents, and physical mail</strong> (handwritten/typed letters from a highly engaged segment). The AI opportunity is advanced digitisation and NLP to distil sentiment from legacy channels that are currently underutilised. <strong>This is our fastest path to a pilot</strong> — contained, measurable, and produces a tangible output Anna can use to demonstrate AI value during her restructuring.</div>
+    </div>
+    <div class="opp-card">
+      <div class="opp-card-num">Opportunity 02</div>
+      <div class="opp-card-title">Brand Consistency Audit</div>
+      <div class="opp-card-body">Anna is working with Brand Strategy/Creative on "go-forward" messaging. The goal is a unified voice across Events, Advertising, and Sponsorships. The AI opportunity: provide an <strong>"External Mirror"</strong> — use AI to audit how AARP currently shows up across all touchpoints and compare against the desired brand evolution. Best positioned as a Phase 2 once trust is established.</div>
+    </div>
+    <div class="opp-card">
+      <div class="opp-card-num">Opportunity 03</div>
+      <div class="opp-card-title">External Listening & Sentiment Tracking</div>
+      <div class="opp-card-body">Real-time pulse on the 50+ American demographic. Trend analysis and sentiment monitoring to inform AARP's advocacy and service positioning. <strong>Connects directly to their CES/AgeTech ambitions</strong> — Sami's territory. A strong Phase 3 play once the internal data capability is proven.</div>
+    </div>
+    <div class="opp-card">
+      <div class="opp-card-num">Opportunity 04</div>
+      <div class="opp-card-title">Content Relevance Engine</div>
+      <div class="opp-card-body">Bridge the gap between what members are saying (Opp 01) and what the market is doing (Opp 03). Use synthesised insights to drive a content strategy that increases member engagement and digital relevance. <strong>This is the ultimate destination</strong> — but it depends on Opps 01 and 03 being in place first.</div>
+    </div>
+  </div>
+
+  <div class="hook-block good">
+    <span class="hook-label">Strategic hook — The physical mail angle: </span>No one else is going to solve the physical mail problem for AARP. A highly engaged member segment still sends handwritten and typed letters. Digitising and extracting sentiment from this channel is a unique differentiator for Conquer and a compelling proof point for Anna.
+  </div>
+
+  <div class="hook-block good">
+    <span class="hook-label">Sequencing logic: </span>Janine's instinct is right — Anna needs a confidence-building win during her restructuring phase. Lead with Opp 01 (contained, measurable, 4–6 weeks to a tangible output), which naturally opens the door to Opp 02 (brand audit) and Opp 03 (external sentiment). Each phase gives Anna more ammunition for the next.
+  </div>
+
+</div>
+</div>
+
+<!-- ══ SECTION: OUR APPROACH ══ -->
+<div id="approach" class="section">
+<div class="content-wrap">
+
+  <div class="section-eyebrow">Our Approach</div>
+  <h2 class="section-headline">Give Anna the ammo<br>to shift the culture.</h2>
+  <p class="section-sub">This is not an automation play. It's about building decision intelligence that drives organisational change — from data and actionable insights, not from theory.</p>
+
+  <div class="info-card">
+    <div class="info-card-label">Conquer value proposition for AARP</div>
+    <p><strong>Process Reimagination:</strong> Moving beyond simple automation to building live AI systems that fundamentally change how AARP listens to and serves its members.</p>
+    <p><strong>Measurable Outcomes:</strong> Every pilot scoped around member engagement, digital transformation, and operational efficiency — metrics Anna can take to her leadership.</p>
+    <p><strong>Decision Intelligence:</strong> Turning 20,000+ surveys and physical letters into actionable strategy — not dashboards, not reports, but inputs that change decisions.</p>
+  </div>
+
+  <div class="info-card">
+    <div class="info-card-label brand">Meeting approach — discovery, not pitch</div>
+    <p>This is Janine's introduction. Come with a point of view, but lead with questions. The goal is to validate the opportunity areas, understand Anna's priorities and constraints, and leave with enough context to scope a pilot proposal.</p>
+    <p>Frame the conversation around: <em>What does Anna need to show her board in 90 days to prove AI belongs in AARP's operating model?</em></p>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-trigger" onclick="toggleAcc(this)">
+      <span class="accordion-arrow">▶</span>
+      <span class="acc-type ask">ASK</span>
+      Key questions for the meeting
+    </button>
+    <div class="accordion-body">
+      <p><strong>For Anna:</strong></p>
+      <p>— What does success look like for you in the first 12 months of this restructuring?</p>
+      <p>— Where are you spending the most manual effort on insight gathering today?</p>
+      <p>— What would you need to see from a pilot to feel confident scaling AI across the MBC org?</p>
+      <p>— How does budget authority work for a pilot like this — is it within your discretionary spend, or does it require a separate approval process?</p>
+      <p style="margin-top:16px;"><strong>For Sami:</strong></p>
+      <p>— What does AARP's current data infrastructure look like for unstructured data (transcripts, surveys, mail)?</p>
+      <p>— Are there existing initiatives we should be aware of — anything in-flight that this would complement or conflict with?</p>
+      <p>— What's your experience been with external AI partners — what's worked and what hasn't?</p>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-trigger" onclick="toggleAcc(this)">
+      <span class="accordion-arrow">▶</span>
+      <span class="acc-type show">SHOW</span>
+      AARP's own data as a mirror
+    </button>
+    <div class="accordion-body">
+      <p>AARP's 2026 Tech Trends research shows AI usage among 50+ adults nearly doubled (18% → 30%) but awareness is outpacing actual knowledge. Frame this back to them:</p>
+      <p><strong>"AARP is telling its members that AI matters — but the organisation itself needs to practice what it preaches. Understanding AI's value internally is the prerequisite to credibly guiding 38 million members."</strong></p>
+      <p>This is a powerful reframe that positions the pilot not as a cost centre but as mission-critical capability building.</p>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══ SECTION: RISKS & WATCH POINTS ══ -->
+<div id="risks" class="section alt">
+<div class="content-wrap">
+
+  <div class="section-eyebrow">Risks & Watch Points</div>
+  <h2 class="section-headline">Things to keep<br>front of mind.</h2>
+
+  <div class="hook-block warn">
+    <span class="hook-label">Watch out — Nonprofit procurement: </span>AARP is massive but mission-driven. Budget cycles, vendor onboarding, and approval processes may be slower and more structured than typical enterprise clients. Ask about procurement early — don't assume Anna has full discretionary authority.
+  </div>
+
+  <div class="hook-block warn">
+    <span class="hook-label">Watch out — Internal politics: </span>Anna is 6 months in and restructuring. She's making changes. There may be people in the organisation who feel threatened by that restructuring or by the introduction of AI into their workflows. Understand who else has a stake before proposing anything that touches cross-functional teams.
+  </div>
+
+  <div class="hook-block warn">
+    <span class="hook-label">Watch out — Data sensitivity: </span>AARP deals with a 50+ demographic that includes vulnerable populations. Any AI solution touching member data (especially physical mail, call transcripts, health-adjacent content) will need to meet high privacy and ethical standards. This is non-negotiable and should be acknowledged upfront.
+  </div>
+
+  <div class="hook-block good">
+    <span class="hook-label">Why this is a strategic account: </span>AARP is the largest membership organisation in the US. A successful pilot here becomes a case study that opens doors across insurance, financial services, healthcare, and the entire nonprofit sector. The brand recognition alone — "Conquer AI works with AARP" — carries significant weight. Combined with the Uber intro also coming through advisors, this signals the advisor network is delivering at the highest level.
+  </div>
+
+</div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<div style="padding:40px 0; text-align:center; font-size:12px; color:var(--text-3); border-top:1px solid var(--border);">
+  <div class="content-wrap">
+    Conquer AI · AARP Advisor Introduction Brief · April 2026 · Internal use only
+  </div>
+</div>
+
+<script>
+function toggleAcc(btn) {
+  const body = btn.nextElementSibling;
+  const arrow = btn.querySelector('.accordion-arrow');
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  arrow.classList.toggle('open', !isOpen);
+}
+
+// Nav active state on scroll
+const sections = document.querySelectorAll('[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 80) current = s.id;
+  });
+  navLinks.forEach(l => {
+    l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+  });
+}, { passive: true });
+</script>
+</body>
+</html>
